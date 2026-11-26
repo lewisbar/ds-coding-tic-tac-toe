@@ -78,8 +78,9 @@ def check_for_draw():
     return sum([abs(item) for row in board for item in row]) == 9
 
 def reset_game():
-    global game_state, board
+    global game_state, board, current_player
     game_state = 'Playing'
+    current_player = 1
     for i in range(3):
         for j in range(3):
             board[i][j] = 0
@@ -91,9 +92,11 @@ def main():
     global game_state
     # Ask player 1 to input symbol.
     symbol = input('Player 1, choose your symbol (X or O): ')
-    if symbol == 'O':
+    if symbol.lower() == 'o':
         symbols[1] = 'O'
         symbols[2] = 'X'
+    print('Player 1, your symbol is:', symbols[1])
+    print('Player 2, your symbol is:', symbols[2])
 
     while game_state == 'Playing':
         display_board()
