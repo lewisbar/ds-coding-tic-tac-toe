@@ -79,10 +79,9 @@ def check_group(group) -> int:
 def check_for_draw():
     return sum([abs(item) for row in board for item in row]) == 9
 
-def validate_input(field: str):
+def validate_move(field: str):
     global valid_inputs
     return field in valid_inputs
-
 
 def reset_game():
     """Resets the game's parameters.
@@ -105,15 +104,15 @@ def set_player_symbols():
 
 def get_next_move():
     while True:
-        field = input(
+        move = input(
             f'{player_names[current_player]}, make your move (e.g. A1, B2, ...): '
         ).lower()
-        if validate_input(field):
-            valid_inputs.remove(field)
+        if validate_move(move):
+            valid_inputs.remove(move)
             break
         else:
             print('Invalid input!')
-    return field
+    return move
 
 def check_for_game_over():
     global game_state
