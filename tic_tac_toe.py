@@ -101,12 +101,12 @@ def main():
     """
     global game_state
     # Ask player 1 to input symbol.
-    symbol = input('Player 1, choose your symbol (X or O): ')
+    symbol = input(f'{player_names[1]}, choose your symbol (X or O): ')
     if symbol.lower() == 'o':
         symbols[1] = 'O'
         symbols[2] = 'X'
-    print('Player 1, your symbol is:', symbols[1])
-    print('Player 2, your symbol is:', symbols[2])
+    print(f'{player_names[1]}, your symbol is:', symbols[1])
+    print(f'{player_names[-1]}, your symbol is:', symbols[2])
 
     while game_state == 'Playing':
         display_board()
@@ -136,10 +136,8 @@ def main():
     display_board()
     if game_state == 'Draw':
         print("Draw!")
-    elif game_state == 1:
-        print("Player 1 wins!")
     else:
-        print("Player 2 wins!")
+        print(f"{player_names[game_state]} wins!")
 
 
 
@@ -147,6 +145,8 @@ def main():
 if __name__ == "__main__":
     # Start a new round of Tic-tac-toe
     print("Welcome to a new round of Tic-Tac-Toe!")
+    player_names[1] = input('Player 1, enter your name: ')
+    player_names[-1] = input('Player 2, enter your name: ')
     while True:
         reset_game()
         main()
