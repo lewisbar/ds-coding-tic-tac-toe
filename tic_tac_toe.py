@@ -73,6 +73,9 @@ def update_board(move: str):
 
 def get_next_move():
     """Asks the current player for the next move, validates the input, and applies it to the board.
+
+    Returns:
+        str: The validated move.
     """
     while True:
         move = input(
@@ -119,7 +122,7 @@ def check_group(group) -> int:
     """Sums up the absolute values of one row, column or diagonally.
 
     Args:
-        group (_type_): The row, column or diagonally.
+        group ([int]): The row, column or diagonally.
 
     Returns:
         int: The sum of the absolute values.
@@ -131,6 +134,9 @@ def check_group(group) -> int:
 
 def check_for_draw():
     """Checks if the board is full. This means the game ended in a draw. Otherwise, it would have ended in a win before this check happens.
+
+    Returns:
+        bool: Whether the board is full or not.
     """
     return sum([abs(item) for row in board for item in row]) == 9
 
