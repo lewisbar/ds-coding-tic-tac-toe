@@ -23,7 +23,7 @@ board = [
     [0, 0, 0]
 ]
 
-current_player: int = 1
+current_player: int = 1  # Player 1: 1; Player 2: -1
 game_state: str = 'Playing'
 
 # FUNCTIONS
@@ -49,7 +49,9 @@ def update_board(field: str):
     Args:
         field (str): The player's input.
     """
-    pass
+    row = MAPPING[field[0]]
+    column = MAPPING[field[1]]
+    board[row][column] = current_player
 
 def switch_player():
     """Switch the player.
