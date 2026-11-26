@@ -13,7 +13,7 @@ THREE_GROUPS = [
     ((0,0), (1,1), (2,2)), ((0,2), (1,1), (2,0))
 ]
 
-symbols = [' ']
+symbols = [' ', 'X', 'O']
 
 # Variables
 
