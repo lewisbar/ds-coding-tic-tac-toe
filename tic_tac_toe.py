@@ -77,9 +77,13 @@ def check_group(group) -> int:
     return abs(result)
 
 def check_for_draw():
+    """Checks if the board is full. This means the game ended in a draw. Otherwise, it would have ended in a win before this check happens.
+    """
     return sum([abs(item) for row in board for item in row]) == 9
 
 def validate_move(field: str):
+    """Check if the move entered by the user is valid.
+    """
     global valid_inputs
     return field in valid_inputs
 
@@ -95,6 +99,8 @@ def reset_game():
             board[i][j] = 0
 
 def set_player_symbols():
+    """Lets player 1 choose a symbol and assigns the other one to player 2.
+    """
     symbol = input(f'{player_names[1]}, choose your symbol (X or O): ')
     if symbol.lower() == 'o':
         symbols[1] = 'O'
@@ -103,6 +109,8 @@ def set_player_symbols():
     print(f'{player_names[-1]}, your symbol is:', symbols[2])
 
 def get_next_move():
+    """Asks the current player for the next move, validates the input, and applies it to the board.
+    """
     while True:
         move = input(
             f'{player_names[current_player]}, make your move (e.g. A1, B2, ...): '
@@ -115,6 +123,8 @@ def get_next_move():
     return move
 
 def check_for_game_over():
+    """Checks if either one of the players has won or there's a draw.
+    """
     global game_state
     for group in THREE_GROUPS:
         if check_group(group) == 3:
@@ -125,6 +135,8 @@ def check_for_game_over():
         game_state = 'Draw'
 
 def show_result():
+    """Prints the game result when the game is over.
+    """
     if game_state == 'Draw':
         print("Draw!")
     else:
