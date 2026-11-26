@@ -38,6 +38,16 @@ def get_player_names():
     player_names[1] = input('Player 1, enter your name: ')
     player_names[-1] = input('Player 2, enter your name: ')
 
+def set_player_symbols():
+    """Lets player 1 choose a symbol and assigns the other one to player 2.
+    """
+    symbol = input(f'{player_names[1]}, choose your symbol (X or O): ')
+    if symbol.lower() == 'o':
+        symbols[1] = 'O'
+        symbols[2] = 'X'
+    print(f'{player_names[1]}, your symbol is:', symbols[1])
+    print(f'{player_names[-1]}, your symbol is:', symbols[2])
+
 def display_board():
     """Displays the current board, the data in board, to the terminal.
     """
@@ -51,8 +61,6 @@ def display_board():
         if char == 'C': break
         print('   -----------')
 
-
-
 def update_board(field: str):
     """Inserts the player's last input field.
 
@@ -63,11 +71,43 @@ def update_board(field: str):
     column = MAPPING[field[1]]
     board[row][column] = current_player
 
+def get_next_move():
+    """Asks the current player for the next move, validates the input, and applies it to the board.
+    """
+    while True:
+        move = input(
+            f'{player_names[current_player]}, make your move (e.g. A1, B2, ...): '
+        ).lower()
+        if validate_move(move):
+            valid_inputs.remove(move)
+            break
+        else:
+            print('Invalid input!')
+    return move
+
+def validate_move(field: str):
+    """Check if the move entered by the user is valid.
+    """
+    global valid_inputs
+    return field in valid_inputs
+
 def switch_player():
     """Switch the player.
     """
     global current_player
     current_player *= -1
+
+def check_for_game_over():
+    """Checks if either one of the players has won or there's a draw.
+    """
+    global game_state
+    for group in THREE_GROUPS:
+        if check_group(group) == 3:
+            game_state = current_player
+            break
+
+    if game_state == 'Playing' and check_for_draw():
+        game_state = 'Draw'
 
 def check_group(group) -> int:
     """Sums up the absolute values of one row, column or diagonally.
@@ -88,11 +128,13 @@ def check_for_draw():
     """
     return sum([abs(item) for row in board for item in row]) == 9
 
-def validate_move(field: str):
-    """Check if the move entered by the user is valid.
+def show_result():
+    """Prints the game result when the game is over.
     """
-    global valid_inputs
-    return field in valid_inputs
+    if game_state == 'Draw':
+        print("Draw!")
+    else:
+        print(f"{player_names[game_state]} wins!")
 
 def reset_game():
     """Resets the game's parameters.
@@ -105,51 +147,6 @@ def reset_game():
         for j in range(3):
             board[i][j] = 0
 
-def set_player_symbols():
-    """Lets player 1 choose a symbol and assigns the other one to player 2.
-    """
-    symbol = input(f'{player_names[1]}, choose your symbol (X or O): ')
-    if symbol.lower() == 'o':
-        symbols[1] = 'O'
-        symbols[2] = 'X'
-    print(f'{player_names[1]}, your symbol is:', symbols[1])
-    print(f'{player_names[-1]}, your symbol is:', symbols[2])
-
-def get_next_move():
-    """Asks the current player for the next move, validates the input, and applies it to the board.
-    """
-    while True:
-        move = input(
-            f'{player_names[current_player]}, make your move (e.g. A1, B2, ...): '
-        ).lower()
-        if validate_move(move):
-            valid_inputs.remove(move)
-            break
-        else:
-            print('Invalid input!')
-    return move
-
-def check_for_game_over():
-    """Checks if either one of the players has won or there's a draw.
-    """
-    global game_state
-    for group in THREE_GROUPS:
-        if check_group(group) == 3:
-            game_state = current_player
-            break
-
-    if game_state == 'Playing' and check_for_draw():
-        game_state = 'Draw'
-
-def show_result():
-    """Prints the game result when the game is over.
-    """
-    if game_state == 'Draw':
-        print("Draw!")
-    else:
-        print(f"{player_names[game_state]} wins!")
-
-# The main function
 def main():
     """Starts a game.
     """
@@ -166,8 +163,6 @@ def main():
 
     display_board()
     show_result()
-
-
 
 # Tic-tac-toe game
 if __name__ == "__main__":
