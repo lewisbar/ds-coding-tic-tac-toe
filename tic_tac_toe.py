@@ -31,7 +31,16 @@ game_state: str = 'Playing'
 def display_board():
     """Displays the current board, the data in board, to the terminal.
     """
-    pass
+    print()
+    print("    1   2   3  ")
+    for char, row in zip(('A', 'B', 'C'), board):
+        print(
+            char,
+            f'  {symbols[row[0]]} | {symbols[row[1]]} | {symbols[row[2]]}'
+        )
+        if char == 'C': break
+        print('   -----------')
+
 
 
 def update_board(field: str):
@@ -61,4 +70,4 @@ def main():
 if __name__ == "__main__":
     # Start a new round of Tic-tac-toe
     print("Welcome to a new round of Tic-Tac-Toe!")
-    main()
+    display_board()
