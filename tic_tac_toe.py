@@ -77,12 +77,19 @@ def check_group(group) -> int:
 def check_for_draw():
     return sum([abs(item) for row in board for item in row]) == 9
 
+def reset_game():
+    global game_state, board
+    game_state = 'Playing'
+    for i in range(3):
+        for j in range(3):
+            board[i][j] = 0
+
 # The main function
 def main():
     """Starts a game.
     """
-    # Ask player 1 to input symbol.
     global game_state
+    # Ask player 1 to input symbol.
     symbol = input('Player 1, choose your symbol (X or O): ')
     if symbol == 'O':
         symbols[1] = 'O'
@@ -120,4 +127,8 @@ def main():
 if __name__ == "__main__":
     # Start a new round of Tic-tac-toe
     print("Welcome to a new round of Tic-Tac-Toe!")
-    main()
+    while True:
+        reset_game()
+        main()
+        answer = input('\nStart a new game (Y/N)? ')
+        if answer.lower() != 'y': break
