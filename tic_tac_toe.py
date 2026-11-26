@@ -21,6 +21,9 @@ board = [
     [0, 0, 0]
 ]
 
+current_player: int = 0
+game_state: str = 'Playing'
+
 # FUNCTIONS
 
 def display_board():
