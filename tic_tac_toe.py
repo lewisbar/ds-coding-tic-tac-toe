@@ -95,6 +95,14 @@ def reset_game():
         for j in range(3):
             board[i][j] = 0
 
+def set_player_symbols():
+    symbol = input(f'{player_names[1]}, choose your symbol (X or O): ')
+    if symbol.lower() == 'o':
+        symbols[1] = 'O'
+        symbols[2] = 'X'
+    print(f'{player_names[1]}, your symbol is:', symbols[1])
+    print(f'{player_names[-1]}, your symbol is:', symbols[2])
+
 def get_next_move():
     while True:
         field = input(
@@ -122,13 +130,7 @@ def main():
     """Starts a game.
     """
     global game_state
-    # Ask player 1 to input symbol.
-    symbol = input(f'{player_names[1]}, choose your symbol (X or O): ')
-    if symbol.lower() == 'o':
-        symbols[1] = 'O'
-        symbols[2] = 'X'
-    print(f'{player_names[1]}, your symbol is:', symbols[1])
-    print(f'{player_names[-1]}, your symbol is:', symbols[2])
+    set_player_symbols()
 
     while game_state == 'Playing':
         display_board()
