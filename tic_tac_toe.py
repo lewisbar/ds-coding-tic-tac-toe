@@ -107,6 +107,16 @@ def get_next_move():
             print('Invalid input!')
     return field
 
+def check_for_game_over():
+    global game_state
+    for group in THREE_GROUPS:
+        if check_group(group) == 3:
+            game_state = current_player
+            break
+
+    if game_state == 'Playing' and check_for_draw():
+        game_state = 'Draw'
+
 # The main function
 def main():
     """Starts a game.
@@ -125,15 +135,7 @@ def main():
         print()
         field = get_next_move()
         update_board(field)
-
-        for group in THREE_GROUPS:
-            if check_group(group) == 3:
-                game_state = current_player
-                break
-
-        if game_state == 'Playing' and check_for_draw():
-            game_state = 'Draw'
-
+        check_for_game_over()
         switch_player()
 
     display_board()
