@@ -31,6 +31,13 @@ game_state: str = 'Playing'
 
 # FUNCTIONS
 
+def get_player_names():
+    """Asks the players for their names to use them throughout the game.
+    """
+    global player_names
+    player_names[1] = input('Player 1, enter your name: ')
+    player_names[-1] = input('Player 2, enter your name: ')
+
 def display_board():
     """Displays the current board, the data in board, to the terminal.
     """
@@ -166,8 +173,7 @@ def main():
 if __name__ == "__main__":
     # Start a new round of Tic-tac-toe
     print("Welcome to a new round of Tic-Tac-Toe!")
-    player_names[1] = input('Player 1, enter your name: ')
-    player_names[-1] = input('Player 2, enter your name: ')
+    get_player_names()
     while True:
         reset_game()
         main()
