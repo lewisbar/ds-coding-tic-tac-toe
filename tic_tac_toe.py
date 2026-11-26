@@ -13,6 +13,8 @@ THREE_GROUPS = [
     ((0,0), (1,1), (2,2)), ((0,2), (1,1), (2,0))
 ]
 
+valid_inputs = []
+
 symbols = [' ', 'X', 'O']
 player_names = {1: 'Player 1', -1: 'Player 2'}
 
@@ -80,7 +82,8 @@ def check_for_draw():
 def reset_game():
     """Resets the game's parameters.
     """
-    global game_state, board, current_player
+    global game_state, board, current_player, valid_inputs
+    valid_inputs = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
     game_state = 'Playing'
     current_player = 1
     for i in range(3):
