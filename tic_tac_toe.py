@@ -5,7 +5,7 @@
 
 # CONSTANTS
 
-MAPPING = {'A': 0, 'B': 1, 'C': 2, '1': 0, '2': 1, '3': 2}
+MAPPING = {'a': 0, 'b': 1, 'c': 2, '1': 0, '2': 1, '3': 2}
 
 THREE_GROUPS = [
     ((0,0), (0,1), (0,2)), ((1,0), (1,1), (1,2)), ((2,0), (2,1), (2,2)),
@@ -79,6 +79,11 @@ def check_group(group) -> int:
 def check_for_draw():
     return sum([abs(item) for row in board for item in row]) == 9
 
+def validate_input(field: str):
+    global valid_inputs
+    return field in valid_inputs
+
+
 def reset_game():
     """Resets the game's parameters.
     """
@@ -106,9 +111,15 @@ def main():
     while game_state == 'Playing':
         display_board()
         print()
-        field = input(
-            f'{player_names[current_player]}, make your move (e.g. A1, B2, ...): '
-        )
+        while True:
+            field = input(
+                f'{player_names[current_player]}, make your move (e.g. A1, B2, ...): '
+            ).lower()
+            if validate_input(field):
+                valid_inputs.remove(field)
+                break
+            else:
+                print('Invalid input!')
 
         update_board(field)
 
