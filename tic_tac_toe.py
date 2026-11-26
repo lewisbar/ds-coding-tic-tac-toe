@@ -125,6 +125,12 @@ def check_for_game_over():
     if game_state == 'Playing' and check_for_draw():
         game_state = 'Draw'
 
+def show_result():
+    if game_state == 'Draw':
+        print("Draw!")
+    else:
+        print(f"{player_names[game_state]} wins!")
+
 # The main function
 def main():
     """Starts a game.
@@ -141,10 +147,7 @@ def main():
         switch_player()
 
     display_board()
-    if game_state == 'Draw':
-        print("Draw!")
-    else:
-        print(f"{player_names[game_state]} wins!")
+    show_result()
 
 
 
