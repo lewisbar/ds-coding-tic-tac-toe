@@ -14,6 +14,7 @@ THREE_GROUPS = [
 ]
 
 symbols = [' ', 'X', 'O']
+player_names = {1: 'Player 1', -1: 'Player 2'}
 
 # Variables
 
@@ -59,15 +60,64 @@ def switch_player():
     global current_player
     current_player *= -1
 
+def check_group(group) -> int:
+    """Sums up the absolute values of one row, column or diagonally.
+
+    Args:
+        group (_type_): The row, column or diagonally.
+
+    Returns:
+        int: The sum of the absolute values.
+    """
+    result = 0
+    for field in group:
+        result += board[field[0]][field[1]]
+    return abs(result)
+
+def check_for_draw():
+    return sum([abs(item) for row in board for item in row]) == 9
+
 # The main function
 def main():
     """Starts a game.
     """
-    pass
+    # Ask player 1 to input symbol.
+    global game_state
+    symbol = input('Player 1, choose your symbol (X or O): ')
+    if symbol == 'O':
+        symbols[1] = 'O'
+        symbols[2] = 'X'
+
+    while game_state == 'Playing':
+        display_board()
+        print()
+        field = input(
+            f'{player_names[current_player]}, make your move (e.g. A1, B2, ...): '
+        )
+        update_board(field)
+
+        for group in THREE_GROUPS:
+            if check_group(group) == 3:
+                game_state = current_player
+                break
+
+        if game_state == 'Playing' and check_for_draw():
+            game_state = 'Draw'
+
+        switch_player()
+
+    display_board()
+    if game_state == 'Draw':
+        print("Draw!")
+    elif game_state == 1:
+        print("Player 1 wins!")
+    else:
+        print("Player 2 wins!")
+
 
 
 # Tic-tac-toe game
 if __name__ == "__main__":
     # Start a new round of Tic-tac-toe
     print("Welcome to a new round of Tic-Tac-Toe!")
-    display_board()
+    main()
