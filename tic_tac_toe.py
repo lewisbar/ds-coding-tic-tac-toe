@@ -95,6 +95,18 @@ def reset_game():
         for j in range(3):
             board[i][j] = 0
 
+def get_next_move():
+    while True:
+        field = input(
+            f'{player_names[current_player]}, make your move (e.g. A1, B2, ...): '
+        ).lower()
+        if validate_input(field):
+            valid_inputs.remove(field)
+            break
+        else:
+            print('Invalid input!')
+    return field
+
 # The main function
 def main():
     """Starts a game.
@@ -111,16 +123,7 @@ def main():
     while game_state == 'Playing':
         display_board()
         print()
-        while True:
-            field = input(
-                f'{player_names[current_player]}, make your move (e.g. A1, B2, ...): '
-            ).lower()
-            if validate_input(field):
-                valid_inputs.remove(field)
-                break
-            else:
-                print('Invalid input!')
-
+        field = get_next_move()
         update_board(field)
 
         for group in THREE_GROUPS:
