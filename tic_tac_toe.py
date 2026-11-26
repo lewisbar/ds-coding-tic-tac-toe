@@ -78,6 +78,8 @@ def check_for_draw():
     return sum([abs(item) for row in board for item in row]) == 9
 
 def reset_game():
+    """Resets the game's parameters.
+    """
     global game_state, board, current_player
     game_state = 'Playing'
     current_player = 1
@@ -104,6 +106,7 @@ def main():
         field = input(
             f'{player_names[current_player]}, make your move (e.g. A1, B2, ...): '
         )
+
         update_board(field)
 
         for group in THREE_GROUPS:
