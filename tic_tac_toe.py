@@ -61,14 +61,14 @@ def display_board():
         if char == 'C': break
         print('   -----------')
 
-def update_board(field: str):
-    """Inserts the player's last input field.
+def update_board(move: str):
+    """Applies the player's last move.
 
     Args:
-        field (str): The player's input.
+        move (str): The player's input.
     """
-    row = MAPPING[field[0]]
-    column = MAPPING[field[1]]
+    row = MAPPING[move[0]]
+    column = MAPPING[move[1]]
     board[row][column] = current_player
 
 def get_next_move():
@@ -85,11 +85,17 @@ def get_next_move():
             print('Invalid input!')
     return move
 
-def validate_move(field: str):
+def validate_move(move: str):
     """Check if the move entered by the user is valid.
+
+    Args:
+        move (str): The move to be validated.
+
+    Returns:
+        bool: Whether the move is valid.
     """
     global valid_inputs
-    return field in valid_inputs
+    return move in valid_inputs
 
 def switch_player():
     """Switch the player.
