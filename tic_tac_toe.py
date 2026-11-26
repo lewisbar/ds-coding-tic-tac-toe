@@ -47,8 +47,8 @@ def update_board(field: str):
 def switch_player():
     """Switch the player.
     """
-    pass
-
+    global current_player
+    current_player *= -1
 
 # The main function
 def main():
